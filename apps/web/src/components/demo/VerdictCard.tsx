@@ -14,7 +14,7 @@ function getDecisionRule(verdict: FirewallVerdict) {
   if (verdict.status === "allowed") {
     return {
       title: "Transaction within safe threshold",
-      detail: "Amount, action type, and recipient trust all satisfy the active wallet policy.",
+      detail: "Amount, action type, and recipient trust all satisfy the active PromptShield OWS policy.",
     };
   }
 
@@ -23,27 +23,27 @@ function getDecisionRule(verdict: FirewallVerdict) {
   if (primaryReason.includes("amount")) {
     return {
       title: "Amount exceeds allowed policy limit",
-      detail: "The requested value is above the safe transfer window configured for this wallet.",
+      detail: "The requested value is above the safe transfer window configured by the security policy.",
     };
   }
 
   if (primaryReason.includes("recipient")) {
     return {
       title: "Recipient is not approved",
-      detail: "The destination address is outside the approved allowlist, so signing is denied.",
+      detail: "The destination is outside the approved allowlist, so the request is blocked before signing.",
     };
   }
 
   if (primaryReason.includes("approval")) {
     return {
       title: "Approval request blocked by policy",
-      detail: "Unlimited or unsafe approval patterns are prevented before they reach the signing layer.",
+      detail: "Unlimited or unsafe approval patterns are blocked by default before they reach the signing layer.",
     };
   }
 
   return {
     title: "Transaction violates active policy",
-    detail: "PromptShield detected a rule conflict and blocked the request before wallet execution.",
+    detail: "PromptShield detected a rule conflict and blocked the request before it reached OWS signing.",
   };
 }
 
@@ -144,7 +144,7 @@ export default function VerdictCard({
                   <path d="M3 3L9 9M9 3L3 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </span>
-              Unsafe transaction stopped before wallet execution
+              Unsafe transaction stopped before OWS signing
             </p>
           )}
           {verdictReady && !isBlocked && (
@@ -154,7 +154,7 @@ export default function VerdictCard({
                   <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              Policy checks passed and request can reach the wallet layer
+              Policy checks passed and request can reach the OWS wallet layer
             </p>
           )}
         </div>

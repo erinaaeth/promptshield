@@ -16,15 +16,13 @@ import { AuditEvent, CustomSimulationInput, DemoScenario, FirewallVerdict, Trans
 type DemoPhase = "prompt" | "ai" | "draft" | "policy" | "trust" | "verdict" | "done";
 
 const pipelineSteps = [
-  "Prompt received",
-  "Parsing intent",
-  "Generating transaction",
-  "Evaluating policy",
-  "Checking recipient trust",
-  "Returning verdict",
+  "Analyzing prompt...",
+  "Evaluating policy...",
+  "Checking transaction...",
+  "Returning result",
 ] as const;
 
-const stepDurations = [420, 480, 470, 520, 430, 420] as const;
+const stepDurations = [320, 320, 360, 320, 280, 220] as const;
 function formatActionLabel(action: string) {
   if (action === "signMessage") return "message signing";
   if (action === "approve") return "token approval";
@@ -39,29 +37,29 @@ function buildAnalysisSummary(scenario: DemoScenario) {
   if (isSafe) {
     return [
       scenario.transaction.action === "signMessage"
-        ? "Message intent classified as benign off-chain signature"
-        : "Prompt classified as a benign wallet request",
+        ? "Request classified as benign off-chain signing intent"
+        : "Prompt classified as a legitimate OWS wallet action within policy scope",
       scenario.transaction.recipient.includes("N/A")
         ? "No on-chain recipient risk detected for this request"
-        : "Recipient matches approved wallet policy context",
+        : "Recipient matches the approved allowlist and trusted wallet context",
       amount.includes("100%") || amount.includes("unlimited")
-        ? "Requested amount still falls within approved safe policy context"
-        : "Transfer size falls within configured policy limits",
-      "Policy checks cleared and request is ready for wallet execution",
+        ? "Requested amount still falls within explicitly approved safe policy context"
+        : "Transaction remains within the configured safe transfer threshold",
+      "OWS pre-signing firewall found no override patterns, drain attempts, or approval abuse",
     ];
   }
 
   return [
     /ignore|bypass|override/.test(prompt)
       ? "Detected override / ignore-instruction pattern"
-      : "Detected adversarial phrasing in the prompt flow",
+      : "Detected adversarial phrasing that conflicts with wallet policy",
     amount.includes("100%") || amount.includes("unlimited")
-      ? "Transaction intent classified as full-balance or unlimited authorization"
+      ? "Transaction intent classified as full-balance drain or unlimited authorization"
       : `Transaction intent classified as elevated-risk ${formatActionLabel(scenario.transaction.action)}`,
     scenario.transaction.recipient.includes("N/A")
       ? "Off-chain request still triggers elevated policy scrutiny"
       : "Recipient marked as untrusted or outside the approved allowlist",
-    "Request violates active wallet policy thresholds and cannot reach signing",
+    "PromptShield blocks the request before it can reach the OWS signing layer",
   ];
 }
 
@@ -172,16 +170,16 @@ function createCustomScenario(input: CustomSimulationInput): DemoScenario {
 
   const reasons = blocked
     ? [
-        amountTooHigh ? "Amount too high" : null,
-        !recipientApproved ? "Recipient not approved for execution" : null,
-        unsafeApproval ? "Unsafe approval request" : null,
-        ethHighAmount ? "High-value ETH transfer flagged for review" : null,
-        mediumRiskBlocked ? "Transfer falls outside safe policy limits" : null,
+        amountTooHigh ? "Amount exceeds allowed policy limit" : null,
+        !recipientApproved ? "Recipient is not in approved allowlist" : null,
+        unsafeApproval ? "Unlimited or unsafe approval blocked by default" : null,
+        ethHighAmount ? "High-value ETH transfer flagged as critical risk" : null,
+        mediumRiskBlocked ? "Transaction exceeds safe threshold and is not explicitly whitelisted" : null,
       ].filter(Boolean) as string[]
     : [
         "Recipient verified as trusted",
-        "Stablecoin transfer stays within safe policy limits",
-        "Transaction approved and ready for signing",
+        "Transaction remains within safe policy limits",
+        "Request cleared by the PromptShield security layer",
       ];
 
   const transaction: Transaction = {
@@ -430,20 +428,27 @@ export default function DemoPage() {
   const isBlocked = activeScenario.verdict.status === "blocked";
   const totalBlocked = demoScenarios.filter((s) => s.verdict.status === "blocked").length;
   const totalAllowed = demoScenarios.filter((s) => s.verdict.status === "allowed").length;
-  const processingLabel = `Processing${".".repeat(statusTick + 1)}`;
+  const processingLabel =
+    phase === "prompt" || phase === "ai"
+      ? `Analyzing prompt${".".repeat(statusTick + 1)}`
+      : phase === "draft" || phase === "policy"
+      ? `Evaluating policy${".".repeat(statusTick + 1)}`
+      : phase === "trust"
+      ? `Checking transaction${".".repeat(statusTick + 1)}`
+      : `Returning result${".".repeat(statusTick + 1)}`;
   const phaseLabel =
     phase === "prompt"
       ? "Prompt received"
       : phase === "ai"
-      ? "Parsing intent"
+      ? "Analyzing prompt"
       : phase === "draft"
-      ? "Generating transaction"
+      ? "Evaluating policy"
       : phase === "policy"
       ? "Evaluating policy"
       : phase === "trust"
-      ? "Checking recipient trust"
+      ? "Checking transaction"
       : phase === "verdict"
-      ? "Returning verdict"
+      ? "Returning result"
       : "Simulation complete";
   const liveEvents = buildLiveAuditEvents(activeScenario, runStartedAt);
   const visibleEventCount =
@@ -609,10 +614,14 @@ export default function DemoPage() {
 
         {processing && (
           <div className="px-6 py-3 border-b border-border bg-surface/85 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-2.5">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2.5">
               {pipelineSteps.map((step, index) => {
-                const completed = processing ? index < activeStep : index < pipelineSteps.length;
-                const current = index === activeStep;
+                const stepIndex =
+                  activeStep <= 1 ? 0 :
+                  activeStep <= 3 ? 1 :
+                  activeStep === 4 ? 2 : 3;
+                const completed = processing ? index < stepIndex : index < pipelineSteps.length;
+                const current = index === stepIndex;
 
                 return (
                   <div

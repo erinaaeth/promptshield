@@ -96,7 +96,7 @@ export default function TransactionDetail({
       {/* Header */}
       <div className="px-5 py-4 border-b border-border">
         <p className="mb-1 text-[13px] font-semibold uppercase tracking-[0.15em] text-text-muted">
-          AI Layer Output
+          PromptShield AI Security Layer
         </p>
         <h3 className="text-[18px] font-semibold text-text-primary">Generated Transaction</h3>
       </div>
@@ -286,9 +286,9 @@ export default function TransactionDetail({
             {!walletConnected
               ? "Connect wallet to simulate signing layer and complete the execution preview."
               : verdictStatus === "blocked"
-              ? "Transaction blocked before reaching wallet signing layer."
+              ? "Transaction blocked before reaching the OWS signing layer."
               : phase === "verdict" || phase === "done"
-              ? "Transaction approved and ready for signature."
+              ? "Transaction approved and ready for OWS signature."
               : "Policy checks passed. Waiting for wallet confirmation."}
           </p>
         </div>

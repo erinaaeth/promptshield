@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { TransactionRequest } from "@promptshield/shared";
 import { env } from "../config/env";
 import { evaluateRequest } from "../services/policy-engine";
 import { interpretPrompt } from "../services/prompt-interpreter";
@@ -40,7 +41,7 @@ simulationRouter.post("/simulate-prompt", async (req, res, next) => {
 
 simulationRouter.post("/evaluate-request", (req, res, next) => {
   try {
-    const request = requestSchema.parse(req.body);
+    const request: TransactionRequest = requestSchema.parse(req.body);
     const policy = evaluateRequest(request, env.policy);
     res.json({ request, policy });
   } catch (error) {
@@ -50,7 +51,7 @@ simulationRouter.post("/evaluate-request", (req, res, next) => {
 
 simulationRouter.post("/execute-request", async (req, res, next) => {
   try {
-    const request = requestSchema.parse(req.body);
+    const request: TransactionRequest = requestSchema.parse(req.body);
     const result = await executeApprovedRequest(request);
     res.json(result);
   } catch (error) {
