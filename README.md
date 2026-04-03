@@ -1,5 +1,34 @@
 # PromptShield
 
+PromptShield is an interactive wallet security demo built for the OWS Hackathon.
+
+It demonstrates how AI-generated wallet actions can be evaluated by a policy firewall before they ever reach signing.
+
+## Live Demo
+https://promptshield-web-six.vercel.app/
+
+## GitHub Repository
+https://github.com/erinaaeth/promptshield
+
+## What it does
+
+- simulates AI-generated wallet actions
+- evaluates them through a policy engine
+- allows safe actions
+- blocks risky actions before signing
+
+## Core idea
+
+AI can be manipulated.  
+Your wallet cannot.
+
+PromptShield adds a policy-controlled security layer between AI-generated actions and wallet execution.
+
+## Run locally
+
+```bash
+npm install
+npm run dev
 PromptShield is a full-stack hackathon project that demonstrates how an AI agent can be manipulated by jailbreak-style prompts into generating unsafe blockchain transaction requests, while an OWS-aligned wallet security layer blocks unsafe requests before execution.
 
 The demo is intentionally split into three concerns:
