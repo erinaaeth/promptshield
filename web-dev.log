@@ -1,0 +1,11 @@
+
+> @promptshield/web@1.0.0 dev
+> next dev -p 3000
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+^C

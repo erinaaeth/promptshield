@@ -1,0 +1,20 @@
+{
+  "name": "promptshield",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "postinstall": "npm run build --workspace @promptshield/shared",
+    "dev": "concurrently \"npm run dev --workspace @promptshield/api\" \"npm run dev --workspace @promptshield/web\"",
+    "build": "npm run build --workspace @promptshield/shared && npm run build --workspace @promptshield/api && npm run build --workspace @promptshield/web",
+    "start": "concurrently \"npm run start --workspace @promptshield/api\" \"npm run start --workspace @promptshield/web\"",
+    "lint": "npm run lint --workspace @promptshield/api && npm run lint --workspace @promptshield/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
