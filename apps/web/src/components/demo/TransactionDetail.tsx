@@ -28,12 +28,17 @@ const chainLabels: Record<string, string> = {
   optimism: "Optimism",
 };
 
+function compactAddress(value: string) {
+  if (!value || value.length < 16 || !value.startsWith("0x")) return value;
+  return `${value.slice(0, 8)}...${value.slice(-6)}`;
+}
+
 function DataRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="flex items-start justify-between py-3 border-b border-border last:border-0">
       <span className="min-w-[110px] text-[13px] font-mono text-text-muted">{label}</span>
       <span
-        className={`ml-4 break-all text-right text-[14px] font-mono ${
+        className={`ml-4 max-w-[180px] break-words text-right text-[14px] font-mono ${
           highlight ? "text-danger font-medium" : "text-text-primary"
         }`}
       >
@@ -206,7 +211,7 @@ export default function TransactionDetail({
             <DataRow label="chain" value={aiReady ? chainLabels[transaction.chain] ?? transaction.chain : "resolving..."} />
             <DataRow label="token" value={draftReady ? transaction.token : "classifying..."} />
             <DataRow label="amount" value={draftReady ? transaction.amount : "synthesizing..."} highlight={policyReady && isDangerous} />
-            <DataRow label="recipient" value={draftReady ? transaction.recipient : "deriving target..."} highlight={policyReady && isDangerous && transaction.recipient !== "N/A (off-chain)"} />
+            <DataRow label="recipient" value={draftReady ? compactAddress(transaction.recipient) : "deriving target..."} highlight={policyReady && isDangerous && transaction.recipient !== "N/A (off-chain)"} />
           </div>
         </div>
 
@@ -243,7 +248,7 @@ export default function TransactionDetail({
                     Connected Wallet
                   </p>
                   <p className="mt-1 font-mono text-[13px] text-text-primary">
-                    {walletAddress ?? "Connect wallet to simulate signing layer"}
+                    {walletAddress ? compactAddress(walletAddress) : "Connect wallet to simulate signing layer"}
                   </p>
                 </div>
                 <span className={`inline-flex items-center gap-1.5 text-[12px] font-medium ${
@@ -284,7 +289,7 @@ export default function TransactionDetail({
           </p>
           <p className="mt-1.5 text-[13px] leading-[1.65] text-text-muted">
             {!walletConnected
-              ? "Connect wallet to simulate signing layer and complete the execution preview."
+              ? "Connect wallet to simulate signing."
               : verdictStatus === "blocked"
               ? "Transaction blocked before reaching the OWS signing layer."
               : phase === "verdict" || phase === "done"

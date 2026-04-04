@@ -704,7 +704,7 @@ export default function DemoPage() {
                 3. BLOCKED / ALLOWED
               </p>
               <p className="mt-1 text-[13px] text-[#64748b]">
-                Risk seviyesine gore karar
+                Decision based on risk level
               </p>
             </div>
             <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
@@ -713,7 +713,7 @@ export default function DemoPage() {
                 4. OWS beforeSign Hook
               </p>
               <p className="mt-1 text-[13px] text-[#94a3b8]">
-                Imzalama oncesi koruma
+                Protection before signing
               </p>
             </div>
           </div>

@@ -20,8 +20,8 @@ interface MockWalletContextValue {
   disconnect: () => void;
 }
 
-const MOCK_ADDRESS = "0xA3F9B72C14D81F5A9B3E44218F5D92A11D779C21";
 const STORAGE_KEY = "promptshield.mock-wallet.connected";
+const ADDRESS_STORAGE_KEY = "promptshield.mock-wallet.address";
 
 const MockWalletContext = createContext<MockWalletContextValue | null>(null);
 
@@ -29,15 +29,24 @@ function shortenAddress(address: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
+function generateMockAddress() {
+  const bytes = new Uint8Array(20);
+  window.crypto.getRandomValues(bytes);
+  return `0x${Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+}
+
 export function MockWalletProvider({ children }: { children: React.ReactNode }) {
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
+  const [address, setAddress] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "true") {
+    const savedAddress = window.localStorage.getItem(ADDRESS_STORAGE_KEY);
+    if (saved === "true" && savedAddress) {
       setConnected(true);
+      setAddress(savedAddress);
     }
   }, []);
 
@@ -45,16 +54,21 @@ export function MockWalletProvider({ children }: { children: React.ReactNode }) 
     if (connected || connecting) return;
     setConnecting(true);
     await new Promise((resolve) => window.setTimeout(resolve, 500));
+    const nextAddress = generateMockAddress();
+    setAddress(nextAddress);
     setConnected(true);
     setConnecting(false);
     window.localStorage.setItem(STORAGE_KEY, "true");
+    window.localStorage.setItem(ADDRESS_STORAGE_KEY, nextAddress);
   }, [connected, connecting]);
 
   const disconnect = useCallback(() => {
     setConnecting(false);
     setConnected(false);
+    setAddress(null);
     if (typeof window !== "undefined") {
       window.localStorage.setItem(STORAGE_KEY, "false");
+      window.localStorage.removeItem(ADDRESS_STORAGE_KEY);
     }
   }, []);
 
@@ -62,14 +76,14 @@ export function MockWalletProvider({ children }: { children: React.ReactNode }) 
     () => ({
       connected,
       connecting,
-      address: connected ? MOCK_ADDRESS : null,
-      shortAddress: connected ? shortenAddress(MOCK_ADDRESS) : null,
+      address: connected ? address : null,
+      shortAddress: connected && address ? shortenAddress(address) : null,
       network: "Ethereum Mainnet",
       status: connected ? "Connected" : "Disconnected",
       connect,
       disconnect,
     }),
-    [connect, connected, connecting, disconnect],
+    [address, connect, connected, connecting, disconnect],
   );
 
   return <MockWalletContext.Provider value={value}>{children}</MockWalletContext.Provider>;

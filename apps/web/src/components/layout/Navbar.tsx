@@ -101,7 +101,7 @@ export default function Navbar() {
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-text-muted">
-                          Wallet
+                          OpenWallet Session
                         </p>
                         <p className="mt-1 font-mono text-[13px] leading-[1.6] text-text-primary">
                           {address}
