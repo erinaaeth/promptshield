@@ -23,7 +23,7 @@ const pipelineSteps = [
 ] as const;
 
 const stepDurations = [320, 320, 360, 320, 280, 220] as const;
-const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
+const stableContainer = "mx-auto w-full max-w-[1240px] px-5";
 
 function formatActionLabel(action: string) {
   if (action === "signMessage") return "message signing";
@@ -491,10 +491,10 @@ export default function DemoPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-1 pt-16">
+      <main className="flex-1 pt-[68px]">
         {/* Page header */}
         <div className="border-b border-border bg-surface">
-          <div className={`${stableContainer} py-6`}>
+          <div className={`${stableContainer} py-5`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -526,31 +526,31 @@ export default function DemoPage() {
                     {connected ? `Wallet connected: ${shortAddress}` : "Connect wallet to run simulation"}
                   </span>
                 </div>
-                <h1 className="text-[32px] font-semibold text-text-primary tracking-tight leading-[1.08]">
+                <h1 className="text-[29px] font-semibold text-text-primary tracking-tight leading-[1.08]">
                   Live Demo Sandbox
                 </h1>
-                <p className="mt-2 text-[16px] leading-[1.6] text-text-muted">
+                <p className="mt-2 text-[15px] leading-[1.58] text-text-muted">
                   Run attack and safe scenarios to see how PromptShield evaluates AI-generated wallet actions in real time.
                 </p>
               </div>
 
               {/* Stats */}
               <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-4 py-2.5">
+                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
                   <div className="w-2 h-2 rounded-full bg-danger-light" />
-                  <span className="text-[14px] font-medium text-text-secondary">
+                  <span className="text-[13px] font-medium text-text-secondary">
                     {totalBlocked} attack scenarios
                   </span>
                 </div>
-                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-4 py-2.5">
+                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
                   <div className="w-2 h-2 rounded-full bg-accent-light" />
-                  <span className="text-[14px] font-medium text-text-secondary">
+                  <span className="text-[13px] font-medium text-text-secondary">
                     {totalAllowed} safe scenarios
                   </span>
                 </div>
-                <div className="hidden xl:flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-4 py-2.5">
+                <div className="hidden xl:flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
                   <div className="w-2 h-2 rounded-full bg-accent" />
-                  <span className="text-[14px] font-medium text-text-secondary">
+                  <span className="text-[13px] font-medium text-text-secondary">
                     120ms control latency
                   </span>
                 </div>
@@ -561,7 +561,7 @@ export default function DemoPage() {
 
         {/* Status bar */}
         <div
-          className={`px-6 py-2.5 transition-colors duration-500 ${
+          className={`px-5 py-2 transition-colors duration-500 ${
             processing
               ? "bg-warning-subtle/55 border-b border-warning/20"
               : isBlocked
@@ -681,7 +681,7 @@ export default function DemoPage() {
           </div>
         )}
 
-        <div className={`${stableContainer} pt-6`}>
+        <div className={`${stableContainer} pt-5`}>
           <div className="grid grid-cols-1 gap-3 rounded-[16px] border border-[#e2e8f0] bg-[linear-gradient(90deg,#f8fafc,#f1f5f9)] px-5 py-5 md:grid-cols-2 xl:grid-cols-[1fr_auto_1.15fr_auto_1fr_auto_1fr] xl:items-center xl:gap-4">
             <div className="text-center">
               <p className="text-[15px] font-semibold text-[#64748b]">
@@ -722,9 +722,9 @@ export default function DemoPage() {
         </div>
 
         {/* Main 3-column dashboard */}
-        <div className={`${stableContainer} py-6`}>
+        <div className={`${stableContainer} py-5`}>
           <div
-            className={`relative grid grid-cols-1 gap-5 transition-all duration-300 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,0.92fr)_minmax(0,0.96fr)] ${
+            className={`relative grid grid-cols-1 gap-4.5 transition-all duration-300 lg:grid-cols-[minmax(0,0.94fr)_minmax(0,0.94fr)_minmax(0,0.98fr)] ${
               transitioning ? "scale-[0.995] opacity-55" : "scale-100 opacity-100"
             }`}
             style={{ minHeight: "600px" }}
@@ -766,7 +766,7 @@ export default function DemoPage() {
         </div>
 
         {/* Audit log — full width */}
-        <div className={`${stableContainer} pb-12`}>
+        <div className={`${stableContainer} pb-10`}>
           <div
             className={`transition-opacity duration-200 ${transitioning ? "opacity-40" : "opacity-100"}`}
           >
@@ -775,7 +775,7 @@ export default function DemoPage() {
         </div>
 
         {/* Integration note */}
-        <div className={`${stableContainer} pb-16`}>
+        <div className={`${stableContainer} pb-14`}>
           <div className="bg-surface border border-border rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start shadow-card">
             <div className="w-9 h-9 rounded-xl bg-surface-2 border border-border flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-text-muted" viewBox="0 0 20 20" fill="none">

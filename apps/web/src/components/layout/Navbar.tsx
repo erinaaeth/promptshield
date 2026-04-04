@@ -10,7 +10,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [walletMenuOpen, setWalletMenuOpen] = useState(false);
   const walletMenuRef = useRef<HTMLDivElement>(null);
-  const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
+  const stableContainer = "mx-auto w-full max-w-[1240px] px-5";
   const { connected, connecting, shortAddress, address, network, status, connect, disconnect } =
     useMockWallet();
 
@@ -33,16 +33,16 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/92 backdrop-blur-md">
-      <div className={`${stableContainer} h-[74px] flex items-center justify-between`}>
+      <div className={`${stableContainer} h-[68px] flex items-center justify-between`}>
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center shadow-card">
             <ShieldIcon className="w-[18px] h-[18px] text-background" />
           </div>
-          <span className="font-semibold text-text-primary tracking-tight text-[17px]">
+          <span className="font-semibold text-text-primary tracking-tight text-[16px]">
             PromptShield
           </span>
-          <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent-subtle px-3.5 py-1.5 text-[12px] font-semibold tracking-[0.08em] text-accent">
+          <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent-subtle px-3 py-1 text-[11px] font-semibold tracking-[0.08em] text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
             OWS Secured
           </span>
@@ -75,7 +75,7 @@ export default function Navbar() {
                 type="button"
                 onClick={connect}
                 disabled={connecting}
-                className={`inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-[15px] font-semibold transition-all shadow-card ${
+                className={`inline-flex items-center gap-2 rounded-lg border px-4.5 py-2 text-[14px] font-semibold transition-all shadow-card ${
                   connecting
                     ? "cursor-wait border-border bg-surface text-text-muted"
                     : "border-accent/20 bg-accent text-background hover:bg-accent/92"
@@ -91,7 +91,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setWalletMenuOpen((value) => !value)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-accent/20 bg-accent-subtle px-4 py-2.5 text-[15px] font-semibold text-accent transition-all shadow-card hover:shadow-card-hover hover:scale-[1.01]"
+                  className="inline-flex items-center gap-2 rounded-lg border border-accent/20 bg-accent-subtle px-3.5 py-2 text-[14px] font-semibold text-accent transition-all shadow-card hover:shadow-card-hover hover:scale-[1.01]"
                 >
                   <span className="h-2 w-2 rounded-full bg-accent-light" />
                   {shortAddress}

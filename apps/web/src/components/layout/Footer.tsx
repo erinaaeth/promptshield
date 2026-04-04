@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
+  const stableContainer = "mx-auto w-full max-w-[1240px] px-5";
 
   return (
     <footer className="border-t border-border bg-surface">
-      <div className={`${stableContainer} py-16`}>
-        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
+      <div className={`${stableContainer} py-14`}>
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-text-primary">
@@ -28,21 +28,21 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <span className="text-[17px] font-semibold text-text-primary">PromptShield</span>
+              <span className="text-[16px] font-semibold text-text-primary">PromptShield</span>
             </div>
-            <p className="max-w-[360px] text-[15px] leading-[1.75] text-text-secondary">
+            <p className="max-w-[340px] text-[14px] leading-[1.7] text-text-secondary">
               Policy-gated AI execution for OWS wallets, designed as a calm security layer between language models, wallet actions, and execution.
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 sm:flex-row sm:gap-20">
+          <div className="flex flex-col gap-7 sm:flex-row sm:gap-16">
             <div className="flex flex-col gap-3">
               <p className="text-[12px] font-semibold uppercase tracking-widest text-text-muted">Product</p>
               <div className="flex flex-col gap-2.5">
-                <Link href="/demo" className="text-[15px] text-text-secondary transition-colors hover:text-text-primary">
+                <Link href="/demo" className="text-[14px] text-text-secondary transition-colors hover:text-text-primary">
                   Demo
                 </Link>
-                <Link href="/architecture" className="text-[15px] text-text-secondary transition-colors hover:text-text-primary">
+                <Link href="/architecture" className="text-[14px] text-text-secondary transition-colors hover:text-text-primary">
                   Architecture
                 </Link>
               </div>
@@ -54,11 +54,11 @@ export default function Footer() {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[15px] text-text-secondary transition-colors hover:text-text-primary"
+                  className="text-[14px] text-text-secondary transition-colors hover:text-text-primary"
                 >
                   GitHub
                 </Link>
-                <Link href="#" className="text-[15px] text-text-secondary transition-colors hover:text-text-primary">
+                <Link href="#" className="text-[14px] text-text-secondary transition-colors hover:text-text-primary">
                   OWS Docs
                 </Link>
               </div>
@@ -66,13 +66,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-7 sm:flex-row">
-          <p className="text-[14px] text-text-muted">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
+          <p className="text-[13px] text-text-muted">
             © 2025 PromptShield. Security platform demo.
           </p>
           <div className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-light animate-pulse-slow" />
-            <span className="text-[14px] text-text-muted">Policy Firewall Active</span>
+            <span className="text-[13px] text-text-muted">Policy Firewall Active</span>
           </div>
         </div>
       </div>
