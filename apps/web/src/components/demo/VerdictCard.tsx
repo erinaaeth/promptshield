@@ -231,6 +231,54 @@ export default function VerdictCard({
           </div>
         )}
 
+        {verdictReady && isBlocked && (
+          <div className="mt-1 rounded-[16px] border-2 border-danger/20 bg-danger-subtle px-5 py-5">
+            <div className="mb-4 flex items-center gap-2.5">
+              <span className="text-[24px] leading-none">🛡️</span>
+              <h3 className="m-0 text-[17px] font-bold text-danger">
+                PromptShield su riskleri tespit etti
+              </h3>
+            </div>
+
+            <div className="grid gap-3.5">
+              <div className="flex items-start gap-3">
+                <span className="text-[20px] leading-none text-danger">⚠️</span>
+                <div className="text-[14px] leading-[1.65] text-danger/85">
+                  <strong>Override / Ignore Instruction Pattern</strong>
+                  <br />
+                  AI prompt'ta "ignore previous instructions" ve "emergency" ifadeleri tespit edildi.
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-[20px] leading-none text-danger">💸</span>
+                <div className="text-[14px] leading-[1.65] text-danger/85">
+                  <strong>Full Balance Drain</strong>
+                  <br />
+                  Islem %100 bakiye transferi talep ediyor (14.82 ETH). Politika ihlali.
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-[20px] leading-none text-danger">❌</span>
+                <div className="text-[14px] leading-[1.65] text-danger/85">
+                  <strong>Untrusted Recipient</strong>
+                  <br />
+                  Alici adresi approved allowlist disinda.
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-[12px] border-l-[5px] border-danger bg-surface px-4 py-4 text-[14px] leading-[1.65] text-text-secondary">
+              <strong className="text-danger">Karar:</strong> Bu islem <strong>imzalanmadan once (pre-signing)</strong> bloke edildi.
+              <br />
+              <span className="text-text-secondary">PromptShield + OWS Policy Engine cuzdani basariyla korudu.</span>
+            </div>
+
+            <div className="mt-4 text-center text-[14px] text-text-muted">
+              Evaluation Time: <strong>38ms</strong> | Confidence: <strong>96%</strong>
+            </div>
+          </div>
+        )}
+
         {/* Policy version */}
         <div className="mt-auto pt-2 border-t border-border flex items-center justify-between">
           <span className="text-[13px] text-text-muted">Policy Version</span>

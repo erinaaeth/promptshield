@@ -505,6 +505,12 @@ export default function DemoPage() {
                   <Badge variant="default">
                     OWS Secured
                   </Badge>
+                  <span className="inline-flex items-center rounded-full bg-[#10b981] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm">
+                    Pre-signing Protection Active
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-[#3b82f6] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm">
+                    OWS beforeSign Hook
+                  </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-text-secondary">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
                     Policy Engine Active
@@ -672,6 +678,46 @@ export default function DemoPage() {
             </div>
           </div>
         )}
+
+        <div className="max-w-7xl mx-auto px-6 pt-6">
+          <div className="grid grid-cols-1 gap-3 rounded-[16px] border border-[#e2e8f0] bg-[linear-gradient(90deg,#f8fafc,#f1f5f9)] px-5 py-5 md:grid-cols-2 xl:flex xl:items-center xl:justify-center xl:gap-4">
+            <div className="text-center xl:min-w-[140px]">
+              <p className="text-[15px] font-semibold text-[#64748b]">
+                1. AI Agent Prompt
+              </p>
+              <p className="mt-1 text-[13px] text-[#94a3b8]">
+                + Transaction Request
+              </p>
+            </div>
+            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
+            <div className="rounded-[12px] border-2 border-warning bg-surface px-4 py-4 text-center shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.10)] xl:min-w-[180px]">
+              <p className="text-[16px] font-bold text-[#b45309]">
+                2. PromptShield AI Analysis
+              </p>
+              <p className="mt-1 text-[13px] text-[#92400e]">
+                Override • Full Balance Drain • Untrusted Recipient
+              </p>
+            </div>
+            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
+            <div className="text-center xl:min-w-[140px]">
+              <p className="text-[15px] font-bold text-danger">
+                3. BLOCKED / ALLOWED
+              </p>
+              <p className="mt-1 text-[13px] text-[#64748b]">
+                Risk seviyesine gore karar
+              </p>
+            </div>
+            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
+            <div className="text-center xl:min-w-[140px]">
+              <p className="text-[15px] font-semibold text-[#64748b]">
+                4. OWS beforeSign Hook
+              </p>
+              <p className="mt-1 text-[13px] text-[#94a3b8]">
+                Imzalama oncesi koruma
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Main 3-column dashboard */}
         <div className="max-w-7xl mx-auto px-6 py-6">
