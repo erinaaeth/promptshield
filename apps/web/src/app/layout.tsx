@@ -1,6 +1,26 @@
 import type { Metadata } from "next";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MockWalletProvider } from "@/components/providers/mock-wallet-provider";
+
+const sans = Inter({
+  subsets: ["latin"],
+  variable: "--font-satoshi",
+  display: "swap",
+});
+
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  weight: "400",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "PromptShield — AI Jailbreak Firewall for OWS Wallets",
@@ -15,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="noise-bg">
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+      <body className="noise-bg font-sans">
         <MockWalletProvider>{children}</MockWalletProvider>
       </body>
     </html>
