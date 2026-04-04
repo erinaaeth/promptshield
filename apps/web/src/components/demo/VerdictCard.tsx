@@ -86,18 +86,18 @@ export default function VerdictCard({
   return (
     <div className={`bg-surface border border-border rounded-2xl shadow-card flex flex-col h-full transition-all duration-300 ${processing ? "opacity-85" : "panel-float-in"}`}>
       {/* Header */}
-      <div className="px-5 py-3.5 border-b border-border">
-        <p className="mb-1 text-[12px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+      <div className="px-4 py-3 border-b border-border">
+        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-text-muted">
           Policy Layer
         </p>
-        <h3 className="text-[16px] font-semibold text-text-primary">Firewall Verdict</h3>
+        <h3 className="text-[15px] font-semibold text-text-primary">Firewall Verdict</h3>
       </div>
 
-      <div className="flex-1 flex flex-col gap-6 p-5 overflow-y-auto">
+      <div className="flex-1 flex flex-col gap-4.5 p-4 overflow-y-auto">
         {/* Big verdict badge */}
         <div
           key={revealKey}
-          className={`rounded-2xl border-2 p-4 text-center transition-all duration-500 ${
+          className={`rounded-2xl border-2 p-3.5 text-center transition-all duration-500 ${
             !verdictReady
               ? "border-warning/20 bg-gradient-to-br from-warning-subtle/70 to-[#FFF3D6]"
               : isBlocked
@@ -105,7 +105,7 @@ export default function VerdictCard({
               : "border-accent/25 bg-gradient-to-br from-accent-subtle to-[#DDFADF]"
           } ${verdictReady && !processing ? "verdict-reveal" : ""} ${verdictReady && !processing && !isBlocked ? "shadow-[0_22px_48px_rgba(34,197,94,0.10),0_0_0_1px_rgba(34,197,94,0.06),0_0_30px_rgba(74,222,128,0.14)]" : ""}`}
         >
-          <div className={`w-10 h-10 rounded-2xl mx-auto mb-3 flex items-center justify-center ${
+          <div className={`w-9 h-9 rounded-2xl mx-auto mb-2.5 flex items-center justify-center ${
             !verdictReady ? "bg-warning/10" : isBlocked ? "bg-danger/10" : "bg-accent/10"
           }`}>
             {!verdictReady ? (
@@ -125,10 +125,10 @@ export default function VerdictCard({
               </svg>
             )}
           </div>
-          <p className={`text-[2.15rem] font-bold tracking-tight ${!verdictReady ? "text-warning" : isBlocked ? "text-danger" : "text-accent"}`}>
+          <p className={`text-[1.95rem] font-bold tracking-tight ${!verdictReady ? "text-warning" : isBlocked ? "text-danger" : "text-accent"}`}>
             {!verdictReady ? "PENDING" : isBlocked ? "BLOCKED" : "ALLOWED"}
           </p>
-          <p className={`mt-2 text-[12px] leading-[1.55] ${!verdictReady ? "text-warning/70" : isBlocked ? "text-danger/70" : "text-accent/70"}`}>
+          <p className={`mt-1.5 text-[11px] leading-[1.5] ${!verdictReady ? "text-warning/70" : isBlocked ? "text-danger/70" : "text-accent/70"}`}>
             {!verdictReady
               ? policyReady
                 ? "Finalizing policy verdict"
@@ -138,7 +138,7 @@ export default function VerdictCard({
               : "Ready for wallet signature"}
           </p>
           {verdictReady && isBlocked && (
-            <p className="mt-2.5 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-danger/90">
+            <p className="mt-2 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-danger/90">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-danger/10">
                 <svg className="h-3 w-3 text-danger" viewBox="0 0 12 12" fill="none">
                   <path d="M3 3L9 9M9 3L3 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -148,7 +148,7 @@ export default function VerdictCard({
             </p>
           )}
           {verdictReady && !isBlocked && (
-            <p className="mt-2.5 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-accent/90">
+            <p className="mt-2 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-accent/90">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10">
                 <svg className="h-3 w-3 text-accent" viewBox="0 0 12 12" fill="none">
                   <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -160,46 +160,46 @@ export default function VerdictCard({
         </div>
 
         {/* Meta */}
-        <div className="grid grid-cols-2 gap-2.5">
-          <div className="bg-surface-2 border border-border rounded-xl p-3">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-text-muted">Severity</p>
-            <p className={`text-[15px] font-bold uppercase tracking-wide ${
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-surface-2 border border-border rounded-xl p-2.5">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted">Severity</p>
+            <p className={`text-[14px] font-bold uppercase tracking-wide ${
               verdict.severity === "critical" || verdict.severity === "high" ? "text-danger" :
               verdict.severity === "medium" ? "text-warning" : "text-accent"
             }`}>{verdict.severity}</p>
           </div>
-          <div className="bg-surface-2 border border-border rounded-xl p-3">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-text-muted">Eval Time</p>
-            <p className="text-[15px] font-mono font-medium text-text-primary">{verdict.executionTime}ms</p>
+          <div className="bg-surface-2 border border-border rounded-xl p-2.5">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted">Eval Time</p>
+            <p className="text-[14px] font-mono font-medium text-text-primary">{verdict.executionTime}ms</p>
           </div>
         </div>
 
         {verdictReady && (
           <div
-            className={`rounded-xl border p-4 ${
+            className={`rounded-xl border p-3 ${
               isBlocked
                 ? "border-danger/15 bg-danger-subtle/45"
                 : "border-accent/15 bg-accent-subtle/45"
             }`}
           >
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">
               Decision Rule
             </p>
-            <p className={`text-[15px] font-semibold leading-[1.35] ${isBlocked ? "text-danger" : "text-accent"}`}>
+            <p className={`text-[14px] font-semibold leading-[1.3] ${isBlocked ? "text-danger" : "text-accent"}`}>
               {decisionRule.title}
             </p>
-            <p className="mt-1.5 text-[12px] leading-[1.65] text-text-secondary">
+            <p className="mt-1 text-[11px] leading-[1.58] text-text-secondary">
               {decisionRule.detail}
             </p>
           </div>
         )}
 
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[11px] font-medium text-text-secondary">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[10px] font-medium text-text-secondary">
             <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
             OWS Secured
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 text-[11px] font-medium text-text-secondary">
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-2 px-2 py-0.5 text-[10px] font-medium text-text-secondary">
             <span className={`h-1.5 w-1.5 rounded-full ${isBlocked ? "bg-danger-light" : "bg-accent-light"}`} />
             {isBlocked ? "Blocked state verified" : "Verified execution path"}
           </span>
@@ -207,14 +207,14 @@ export default function VerdictCard({
 
         {verdict.reasons.length > 0 && verdictReady && (
           <div>
-            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wider text-text-muted">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-text-muted">
               {isBlocked ? "Key Reasons" : "Approval Signal"}
             </p>
             <div className="flex flex-col gap-2">
               {verdict.reasons.slice(0, 2).map((reason, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-2.5 p-3 rounded-xl border text-[13px] leading-[1.6] ${
+                  className={`flex items-start gap-2 p-2.5 rounded-xl border text-[12px] leading-[1.5] ${
                     isBlocked
                       ? "bg-danger-subtle/50 border-danger/10 text-danger/80"
                       : "bg-accent-subtle/50 border-accent/10 text-accent/80"
@@ -232,34 +232,34 @@ export default function VerdictCard({
         )}
 
         {verdictReady && isBlocked && (
-          <div className="mt-1 rounded-[16px] border-2 border-danger/20 bg-danger-subtle px-4 py-4">
-            <div className="mb-4 flex items-center gap-2.5">
-              <span className="text-[22px] leading-none">🛡️</span>
-              <h3 className="m-0 text-[15px] font-bold text-danger">
+          <div className="mt-1 rounded-[16px] border-2 border-danger/20 bg-danger-subtle px-3.5 py-3.5">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-[20px] leading-none">🛡️</span>
+              <h3 className="m-0 text-[14px] font-bold text-danger">
                 PromptShield detected the following risks
               </h3>
             </div>
 
-            <div className="grid gap-3.5">
-              <div className="flex items-start gap-3">
-                <span className="text-[18px] leading-none text-danger">⚠️</span>
-                <div className="text-[12px] leading-[1.65] text-danger/85">
+            <div className="grid gap-3">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[16px] leading-none text-danger">⚠️</span>
+                <div className="text-[11px] leading-[1.55] text-danger/85">
                   <strong>Override / Ignore Instruction Pattern</strong>
                   <br />
                   The AI prompt contains phrases such as "ignore previous instructions" and "emergency".
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <span className="text-[18px] leading-none text-danger">💸</span>
-                <div className="text-[12px] leading-[1.65] text-danger/85">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[16px] leading-none text-danger">💸</span>
+                <div className="text-[11px] leading-[1.55] text-danger/85">
                   <strong>Full Balance Drain</strong>
                   <br />
                   The request attempts a 100% balance transfer (14.82 ETH), which violates policy.
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <span className="text-[18px] leading-none text-danger">❌</span>
-                <div className="text-[12px] leading-[1.65] text-danger/85">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[16px] leading-none text-danger">❌</span>
+                <div className="text-[11px] leading-[1.55] text-danger/85">
                   <strong>Untrusted Recipient</strong>
                   <br />
                   The recipient address is outside the approved allowlist.
@@ -267,13 +267,13 @@ export default function VerdictCard({
               </div>
             </div>
 
-            <div className="mt-5 rounded-[12px] border-l-[5px] border-danger bg-surface px-4 py-4 text-[12px] leading-[1.65] text-text-secondary">
+            <div className="mt-4 rounded-[12px] border-l-[5px] border-danger bg-surface px-3.5 py-3.5 text-[11px] leading-[1.58] text-text-secondary">
               <strong className="text-danger">Decision:</strong> This request was <strong>blocked before signing (pre-signing)</strong>.
               <br />
               <span className="text-text-secondary">PromptShield and the OWS Policy Engine successfully protected the wallet.</span>
             </div>
 
-            <div className="mt-4 text-center text-[12px] text-text-muted">
+            <div className="mt-3 text-center text-[11px] text-text-muted">
               Evaluation Time: <strong>38ms</strong> | Confidence: <strong>96%</strong>
             </div>
           </div>
@@ -281,8 +281,8 @@ export default function VerdictCard({
 
         {/* Policy version */}
         <div className="mt-auto pt-2 border-t border-border flex items-center justify-between">
-          <span className="text-[12px] text-text-muted">Policy Version</span>
-          <span className="font-mono text-[12px] text-text-secondary">{verdict.policyVersion}</span>
+          <span className="text-[11px] text-text-muted">Policy Version</span>
+          <span className="font-mono text-[11px] text-text-secondary">{verdict.policyVersion}</span>
         </div>
       </div>
     </div>

@@ -8,12 +8,12 @@ import TransactionDetail from "@/components/demo/TransactionDetail";
 import VerdictCard from "@/components/demo/VerdictCard";
 import AuditLog from "@/components/demo/AuditLog";
 import ExplorerModal from "@/components/demo/ExplorerModal";
-import Badge from "@/components/ui/Badge";
 import { useMockWallet } from "@/components/providers/mock-wallet-provider";
 import { demoScenarios, defaultScenario } from "@/lib/mockData";
 import { AuditEvent, CustomSimulationInput, DemoScenario, FirewallVerdict, Transaction } from "@/types";
 
 type DemoPhase = "prompt" | "ai" | "draft" | "policy" | "trust" | "verdict" | "done";
+type FlowStepStatus = "completed" | "current" | "pending";
 
 const pipelineSteps = [
   "Analyzing prompt...",
@@ -24,6 +24,28 @@ const pipelineSteps = [
 
 const stepDurations = [320, 320, 360, 320, 280, 220] as const;
 const stableContainer = "mx-auto w-full max-w-[1240px] px-5";
+const flowSteps = [
+  {
+    key: "prompt",
+    title: "AI Agent Prompt",
+    detail: "Prompt + transaction request",
+  },
+  {
+    key: "analysis",
+    title: "PromptShield Analysis",
+    detail: "Intent, policy, recipient review",
+  },
+  {
+    key: "verdict",
+    title: "BLOCKED / ALLOWED",
+    detail: "Decision based on risk level",
+  },
+  {
+    key: "hook",
+    title: "OWS beforeSign Hook",
+    detail: "Signing boundary protection",
+  },
+] as const;
 
 function formatActionLabel(action: string) {
   if (action === "signMessage") return "message signing";
@@ -154,6 +176,19 @@ function parseAmount(amount: string) {
   const normalized = amount.toLowerCase().replace(/,/g, ".").trim();
   const numeric = Number(normalized.replace(/[^0-9.]/g, ""));
   return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function getFlowIndex(phase: DemoPhase) {
+  if (phase === "prompt") return 0;
+  if (phase === "ai" || phase === "draft" || phase === "policy" || phase === "trust") return 1;
+  if (phase === "verdict") return 2;
+  return 3;
+}
+
+function getFlowStatus(stepIndex: number, currentIndex: number): FlowStepStatus {
+  if (stepIndex < currentIndex) return "completed";
+  if (stepIndex === currentIndex) return "current";
+  return "pending";
 }
 
 function createCustomScenario(input: CustomSimulationInput): DemoScenario {
@@ -486,6 +521,9 @@ export default function DemoPage() {
       : phase === "verdict" || phase === "done"
       ? "Ready for broadcast"
       : "Pending";
+  const flowIndex = getFlowIndex(phase);
+  const flowProgress = `${(flowIndex / (flowSteps.length - 1)) * 100}%`;
+  const conciseWalletLabel = connected ? shortAddress : "Wallet disconnected";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -494,64 +532,28 @@ export default function DemoPage() {
       <main className="flex-1 pt-[68px]">
         {/* Page header */}
         <div className="border-b border-border bg-surface">
-          <div className={`${stableContainer} py-5`}>
+          <div className={`${stableContainer} py-4`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <Badge variant="accent" dot>
-                    Live Demo
-                  </Badge>
-                  <Badge variant="accent" dot>
-                    Live
-                  </Badge>
-                  <Badge variant="default">
-                    OWS Secured
-                  </Badge>
-                  <span className="inline-flex items-center rounded-full bg-[#10b981] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm">
-                    Pre-signing Protection Active
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-[#3b82f6] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm">
-                    OWS beforeSign Hook
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-text-secondary">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
-                    Policy Engine Active
-                  </span>
-                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] font-medium ${
-                    connected
-                      ? "border-accent/20 bg-accent-subtle text-accent"
-                      : "border-border bg-surface-2 text-text-muted"
-                  }`}>
-                    <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-accent-light" : "bg-text-muted"}`} />
-                    {connected ? `Wallet connected: ${shortAddress}` : "Connect wallet to run simulation"}
-                  </span>
-                </div>
-                <h1 className="text-[29px] font-semibold text-text-primary tracking-tight leading-[1.08]">
+                <h1 className="text-[28px] font-semibold text-text-primary tracking-tight leading-[1.08]">
                   Live Demo Sandbox
                 </h1>
-                <p className="mt-2 text-[15px] leading-[1.58] text-text-muted">
+                <p className="mt-1.5 max-w-[52rem] text-[14px] leading-[1.58] text-text-muted">
                   Run attack and safe scenarios to see how PromptShield evaluates AI-generated wallet actions in real time.
                 </p>
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3 py-1.5">
                   <div className="w-2 h-2 rounded-full bg-danger-light" />
-                  <span className="text-[13px] font-medium text-text-secondary">
+                  <span className="text-[12px] font-medium text-text-secondary">
                     {totalBlocked} attack scenarios
                   </span>
                 </div>
-                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
+                <div className="flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3 py-1.5">
                   <div className="w-2 h-2 rounded-full bg-accent-light" />
-                  <span className="text-[13px] font-medium text-text-secondary">
+                  <span className="text-[12px] font-medium text-text-secondary">
                     {totalAllowed} safe scenarios
-                  </span>
-                </div>
-                <div className="hidden xl:flex items-center gap-2 bg-surface-2 border border-border rounded-xl px-3.5 py-2">
-                  <div className="w-2 h-2 rounded-full bg-accent" />
-                  <span className="text-[13px] font-medium text-text-secondary">
-                    120ms control latency
                   </span>
                 </div>
               </div>
@@ -593,29 +595,13 @@ export default function DemoPage() {
             <span className="ml-1 text-[13px] text-text-muted">
               {processing ? `· ${phaseLabel} · ${elapsedMs}ms` : `· Evaluated in ${activeScenario.verdict.executionTime}ms`}
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/80 px-2.5 py-1 text-[12px] font-medium text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
-              Live Demo
-            </span>
-            <span className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/80 px-2.5 py-1 text-[12px] font-medium text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
-              Policy Engine Active
-            </span>
-            <span className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/80 px-2.5 py-1 text-[12px] font-medium text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
-              Wallet Simulation
-            </span>
-            <span className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/80 px-2.5 py-1 text-[12px] font-medium text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-light" />
-              Real-time Evaluation
-            </span>
             <span className={`hidden md:inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[12px] font-medium ${
               connected
                 ? "border-accent/20 bg-accent-subtle text-accent"
                 : "border-border bg-surface text-text-muted"
             }`}>
               <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-accent-light" : "bg-text-muted"}`} />
-              {connected ? shortAddress : "Wallet disconnected"}
+              {conciseWalletLabel}
             </span>
           </div>
         </div>
@@ -682,41 +668,95 @@ export default function DemoPage() {
         )}
 
         <div className={`${stableContainer} pt-5`}>
-          <div className="grid grid-cols-1 gap-3 rounded-[16px] border border-[#e2e8f0] bg-[linear-gradient(90deg,#f8fafc,#f1f5f9)] px-5 py-5 md:grid-cols-2 xl:grid-cols-[1fr_auto_1.15fr_auto_1fr_auto_1fr] xl:items-center xl:gap-4">
-            <div className="text-center">
-              <p className="text-[15px] font-semibold text-[#64748b]">
-                1. AI Agent Prompt
-              </p>
-              <p className="mt-1 text-[13px] text-[#94a3b8]">
-                + Transaction Request
-              </p>
+          <div className="rounded-[18px] border border-border bg-[linear-gradient(180deg,#f8fafc,#f4f7fb)] px-4 py-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:px-5">
+            <div className="relative hidden lg:block">
+              <div className="absolute left-[11%] right-[11%] top-4 h-px bg-border" />
+              <div
+                className="absolute left-[11%] top-4 h-px bg-accent transition-all duration-500"
+                style={{ width: `calc(78% * ${flowProgress} / 100)` }}
+              />
             </div>
-            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="rounded-[12px] border-2 border-warning bg-surface px-4 py-4 text-center shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.10)]">
-              <p className="text-[16px] font-bold text-[#b45309]">
-                2. PromptShield AI Analysis
-              </p>
-              <p className="mt-1 text-[13px] text-[#92400e]">
-                Override • Full Balance Drain • Untrusted Recipient
-              </p>
-            </div>
-            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="text-center">
-              <p className="text-[15px] font-bold text-danger">
-                3. BLOCKED / ALLOWED
-              </p>
-              <p className="mt-1 text-[13px] text-[#64748b]">
-                Decision based on risk level
-              </p>
-            </div>
-            <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="text-center">
-              <p className="text-[15px] font-semibold text-[#64748b]">
-                4. OWS beforeSign Hook
-              </p>
-              <p className="mt-1 text-[13px] text-[#94a3b8]">
-                Protection before signing
-              </p>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+              {flowSteps.map((step, index) => {
+                const status = getFlowStatus(index, flowIndex);
+                const isCurrent = status === "current";
+                const isCompleted = status === "completed";
+                const isPending = status === "pending";
+                const detail =
+                  step.key === "verdict"
+                    ? processing
+                      ? "Decision forming in real time"
+                      : activeScenario.verdict.status === "blocked"
+                      ? "Request blocked by policy"
+                      : "Request cleared for signing"
+                    : step.key === "hook"
+                    ? activeScenario.verdict.status === "blocked"
+                      ? "Stopped at the signing boundary"
+                      : "Passed to OWS signing hook"
+                    : step.detail;
+
+                return (
+                  <div
+                    key={step.key}
+                    className={`relative rounded-[14px] px-4 py-3.5 transition-all duration-300 ${
+                      isCurrent
+                        ? "border border-warning/30 bg-surface shadow-[0_12px_26px_rgba(245,158,11,0.12)]"
+                        : isCompleted
+                        ? "border border-accent/15 bg-accent-subtle/55"
+                        : "border border-transparent bg-transparent"
+                    } ${processing && isCurrent ? "scale-[1.01]" : "scale-100"}`}
+                  >
+                    <div className="mb-2 flex items-center gap-2">
+                      <div
+                        className={`flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-semibold transition-colors ${
+                          isCurrent
+                            ? "bg-warning-subtle text-warning"
+                            : isCompleted
+                            ? "bg-accent-subtle text-accent"
+                            : "bg-surface text-text-muted border border-border"
+                        }`}
+                      >
+                        {isCompleted ? (
+                          <svg className="h-3.5 w-3.5" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        ) : (
+                          index + 1
+                        )}
+                      </div>
+                      <span
+                        className={`text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                          isCurrent
+                            ? "text-warning"
+                            : isCompleted
+                            ? "text-accent"
+                            : "text-text-muted"
+                        }`}
+                      >
+                        {isCurrent ? "Active" : isCompleted ? "Done" : "Pending"}
+                      </span>
+                    </div>
+                    <p
+                      className={`text-[14px] font-semibold leading-[1.3] ${
+                        isCurrent
+                          ? "text-text-primary"
+                          : isCompleted
+                          ? "text-text-primary"
+                          : "text-text-secondary"
+                      }`}
+                    >
+                      {index + 1}. {step.title}
+                    </p>
+                    <p
+                      className={`mt-1 text-[12px] leading-[1.55] ${
+                        isPending ? "text-text-muted/75" : "text-text-muted"
+                      }`}
+                    >
+                      {detail}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
