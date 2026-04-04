@@ -75,7 +75,7 @@ export default function Navbar() {
                 type="button"
                 onClick={connect}
                 disabled={connecting}
-                className={`inline-flex items-center gap-2 rounded-lg border px-4.5 py-2 text-[14px] font-semibold transition-all shadow-card ${
+                className={`inline-flex min-h-[44px] items-center gap-2.5 rounded-xl border px-5 py-2.5 text-[15px] font-semibold transition-all shadow-card ${
                   connecting
                     ? "cursor-wait border-border bg-surface text-text-muted"
                     : "border-accent/20 bg-accent text-background hover:bg-accent/92"
@@ -91,7 +91,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setWalletMenuOpen((value) => !value)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-accent/20 bg-accent-subtle px-3.5 py-2 text-[14px] font-semibold text-accent transition-all shadow-card hover:shadow-card-hover hover:scale-[1.01]"
+                  className="inline-flex min-h-[44px] items-center gap-2.5 rounded-xl border border-accent/20 bg-accent-subtle px-4 py-2.5 text-[14px] font-semibold text-accent transition-all shadow-card hover:shadow-card-hover hover:scale-[1.01]"
                 >
                   <span className="h-2 w-2 rounded-full bg-accent-light" />
                   {shortAddress}

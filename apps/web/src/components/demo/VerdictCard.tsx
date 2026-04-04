@@ -97,7 +97,7 @@ export default function VerdictCard({
         {/* Big verdict badge */}
         <div
           key={revealKey}
-          className={`rounded-2xl border-2 p-3.5 text-center transition-all duration-500 ${
+          className={`rounded-[20px] border-2 px-3 py-3.5 text-center transition-all duration-500 ${
             !verdictReady
               ? "border-warning/20 bg-gradient-to-br from-warning-subtle/70 to-[#FFF3D6]"
               : isBlocked
@@ -105,30 +105,30 @@ export default function VerdictCard({
               : "border-accent/25 bg-gradient-to-br from-accent-subtle to-[#DDFADF]"
           } ${verdictReady && !processing ? "verdict-reveal" : ""} ${verdictReady && !processing && !isBlocked ? "shadow-[0_22px_48px_rgba(34,197,94,0.10),0_0_0_1px_rgba(34,197,94,0.06),0_0_30px_rgba(74,222,128,0.14)]" : ""}`}
         >
-          <div className={`w-9 h-9 rounded-2xl mx-auto mb-2.5 flex items-center justify-center ${
+          <div className={`w-8 h-8 rounded-[18px] mx-auto mb-2 flex items-center justify-center ${
             !verdictReady ? "bg-warning/10" : isBlocked ? "bg-danger/10" : "bg-accent/10"
           }`}>
             {!verdictReady ? (
-              <svg className="w-5 h-5 animate-pulse text-warning" viewBox="0 0 24 24" fill="none">
+              <svg className="w-4.5 h-4.5 animate-pulse text-warning" viewBox="0 0 24 24" fill="none">
                 <path d="M12 5v7l4 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" />
               </svg>
             ) : isBlocked ? (
-              <svg className="w-5 h-5 text-danger" viewBox="0 0 24 24" fill="none">
+              <svg className="w-4.5 h-4.5 text-danger" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L20 6V11C20 15.5 16.5 19.5 12 21C7.5 19.5 4 15.5 4 11V6L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                 <path d="M9 9L15 15M15 9L9 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none">
+              <svg className="w-4.5 h-4.5 text-accent" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L20 6V11C20 15.5 16.5 19.5 12 21C7.5 19.5 4 15.5 4 11V6L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                 <path d="M8.5 12L10.5 14L15.5 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
           </div>
-          <p className={`text-[1.95rem] font-bold tracking-tight ${!verdictReady ? "text-warning" : isBlocked ? "text-danger" : "text-accent"}`}>
+          <p className={`text-[1.65rem] font-bold tracking-tight ${!verdictReady ? "text-warning" : isBlocked ? "text-danger" : "text-accent"}`}>
             {!verdictReady ? "PENDING" : isBlocked ? "BLOCKED" : "ALLOWED"}
           </p>
-          <p className={`mt-1.5 text-[11px] leading-[1.5] ${!verdictReady ? "text-warning/70" : isBlocked ? "text-danger/70" : "text-accent/70"}`}>
+          <p className={`mt-1 text-[10.5px] leading-[1.45] ${!verdictReady ? "text-warning/70" : isBlocked ? "text-danger/70" : "text-accent/70"}`}>
             {!verdictReady
               ? policyReady
                 ? "Finalizing policy verdict"
@@ -138,9 +138,9 @@ export default function VerdictCard({
               : "Ready for wallet signature"}
           </p>
           {verdictReady && isBlocked && (
-            <p className="mt-2 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-danger/90">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-danger/10">
-                <svg className="h-3 w-3 text-danger" viewBox="0 0 12 12" fill="none">
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.11em] text-danger/90">
+              <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-danger/10">
+                <svg className="h-2.5 w-2.5 text-danger" viewBox="0 0 12 12" fill="none">
                   <path d="M3 3L9 9M9 3L3 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </span>
@@ -148,9 +148,9 @@ export default function VerdictCard({
             </p>
           )}
           {verdictReady && !isBlocked && (
-            <p className="mt-2 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-accent/90">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10">
-                <svg className="h-3 w-3 text-accent" viewBox="0 0 12 12" fill="none">
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.11em] text-accent/90">
+              <span className="inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-accent/10">
+                <svg className="h-2.5 w-2.5 text-accent" viewBox="0 0 12 12" fill="none">
                   <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
