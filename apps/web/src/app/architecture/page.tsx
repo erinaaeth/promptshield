@@ -1,6 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Badge from "@/components/ui/Badge";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ArchDiagram from "@/components/demo/ArchDiagram";
 import Link from "next/link";
@@ -150,40 +149,8 @@ export default function ArchitecturePage() {
       <Navbar />
 
       <main className="flex-1 pt-16">
-        {/* Page header */}
-        <section className="border-b border-border bg-surface">
-          <div className="max-w-7xl mx-auto px-6 py-24 md:py-28">
-            <div className="flex flex-col gap-6 max-w-3xl">
-              <Badge variant="accent">System Design</Badge>
-              <h1 className="text-display-md font-bold text-text-primary tracking-tight">
-                Architecture
-              </h1>
-              <p className="text-body-lg text-text-secondary leading-[1.72] max-w-2xl">
-                PromptShield uses a layered trust model to separate AI inference from wallet execution.
-                The private key is never accessible to the AI or policy layers.
-              </p>
-              <div className="flex gap-3 pt-2">
-                <Link
-                  href="/demo"
-                  className="px-6 py-3.5 rounded-xl bg-ink text-background text-[15px] font-semibold hover:bg-ink/92 transition-all shadow-card hover:-translate-y-0.5 duration-200"
-                >
-                  Try the Demo
-                </Link>
-                <Link
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-xl bg-surface border border-border text-text-primary text-[15px] font-medium hover:border-border-strong transition-all"
-                >
-                  View Source
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Trust Model Diagram */}
-        <section className="max-w-7xl mx-auto px-6 py-24 md:py-28">
+        <section className="max-w-7xl mx-auto px-6 pt-14 pb-24 md:pt-16 md:pb-28">
           <ArchDiagram />
         </section>
 
