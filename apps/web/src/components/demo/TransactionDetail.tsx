@@ -36,9 +36,9 @@ function compactAddress(value: string) {
 function DataRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="flex items-start justify-between py-3 border-b border-border last:border-0">
-      <span className="min-w-[110px] text-[13px] font-mono text-text-muted">{label}</span>
+      <span className="min-w-[110px] text-[12px] font-mono text-text-muted">{label}</span>
       <span
-        className={`ml-4 max-w-[180px] break-words text-right text-[14px] font-mono ${
+        className={`ml-4 max-w-[180px] break-words text-right text-[13px] font-mono ${
           highlight ? "text-danger font-medium" : "text-text-primary"
         }`}
       >
@@ -99,23 +99,23 @@ export default function TransactionDetail({
   return (
     <div className={`bg-surface border border-border rounded-2xl shadow-card flex flex-col h-full transition-all duration-300 ${processing ? "opacity-85" : "panel-float-in"}`}>
       {/* Header */}
-      <div className="px-5 py-4 border-b border-border">
-        <p className="mb-1 text-[13px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+      <div className="px-5 py-3.5 border-b border-border">
+        <p className="mb-1 text-[12px] font-semibold uppercase tracking-[0.15em] text-text-muted">
           PromptShield AI Security Layer
         </p>
-        <h3 className="text-[18px] font-semibold text-text-primary">Generated Transaction</h3>
+        <h3 className="text-[16px] font-semibold text-text-primary">Generated Transaction</h3>
       </div>
 
-      <div className="flex-1 flex flex-col gap-7 p-6 overflow-y-auto">
+      <div className="flex-1 flex flex-col gap-6 p-5 overflow-y-auto">
         {/* Risk indicator */}
         <div
           className={`rounded-xl border px-4 py-3 transition-all duration-300 ${risk.bg} ${risk.border} ${processing ? "processing-sheen bg-[length:220%_100%]" : ""}`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[13px] font-semibold uppercase tracking-wider text-text-muted">
+            <span className="text-[12px] font-semibold uppercase tracking-wider text-text-muted">
               {phase === "ai" || phase === "draft" ? "Analysis State" : processing ? "Evaluation" : "Risk Level"}
             </span>
-            <span className={`text-[14px] font-bold tracking-wide ${phase === "ai" || phase === "draft" || (processing && !policyReady) ? "text-warning" : risk.color}`}>
+            <span className={`text-[13px] font-bold tracking-wide ${phase === "ai" || phase === "draft" || (processing && !policyReady) ? "text-warning" : risk.color}`}>
               {phase === "ai" || phase === "draft" ? "GENERATING" : processing && !policyReady ? "PENDING" : risk.label}
             </span>
           </div>
@@ -151,10 +151,10 @@ export default function TransactionDetail({
 
         <div>
           <div className="flex items-center justify-between mb-2.5 gap-3">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-text-muted">
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-text-muted">
               AI Analysis Summary
             </p>
-            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.12em] ${phaseChip.color}`}>
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${phaseChip.color}`}>
               {phaseChip.label}
             </span>
           </div>
@@ -162,7 +162,7 @@ export default function TransactionDetail({
             {analysisSummary.slice(0, 3).map((item, index) => (
               <div
                 key={`${item}-${index}`}
-                className={`flex items-start gap-2.5 text-[14px] leading-[1.68] transition-all duration-300 ${
+                className={`flex items-start gap-2.5 text-[13px] leading-[1.68] transition-all duration-300 ${
                   processing ? "opacity-90" : "rule-reveal"
                 }`}
                 style={{ animationDelay: `${index * 80}ms` }}
@@ -180,10 +180,10 @@ export default function TransactionDetail({
 
         <div className="rounded-xl border border-border bg-surface-2 p-3.5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-text-muted">
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-text-muted">
               Risk Score
             </p>
-            <span className={`text-[16px] font-bold ${riskScore >= 80 ? "text-danger" : riskScore >= 40 ? "text-warning" : "text-accent"}`}>
+            <span className={`text-[15px] font-bold ${riskScore >= 80 ? "text-danger" : riskScore >= 40 ? "text-warning" : "text-accent"}`}>
               {riskScore}%
             </span>
           </div>
@@ -203,7 +203,7 @@ export default function TransactionDetail({
 
         {/* Transaction fields */}
         <div>
-          <p className="mb-2.5 text-[13px] font-semibold uppercase tracking-wider text-text-muted">
+          <p className="mb-2.5 text-[12px] font-semibold uppercase tracking-wider text-text-muted">
             Transaction Details
           </p>
           <div className="bg-surface-2 border border-border rounded-xl px-4 py-1">
@@ -217,11 +217,11 @@ export default function TransactionDetail({
 
         <div className="rounded-xl border border-border bg-surface-2 p-3.5">
           <div className="mb-2.5 flex items-center justify-between gap-3">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-text-muted">
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-text-muted">
               Wallet Layer
             </p>
             <span
-              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.12em] ${
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
                 !walletConnected
                   ? "border-border bg-surface text-text-muted"
                   : verdictStatus === "blocked"
@@ -244,14 +244,14 @@ export default function TransactionDetail({
             <div className="space-y-3">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-text-muted">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">
                     Connected Wallet
                   </p>
-                  <p className="mt-1 font-mono text-[13px] text-text-primary">
+                  <p className="mt-1 font-mono text-[12px] text-text-primary">
                     {walletAddress ? compactAddress(walletAddress) : "Connect wallet to simulate signing layer"}
                   </p>
                 </div>
-                <span className={`inline-flex items-center gap-1.5 text-[12px] font-medium ${
+                <span className={`inline-flex items-center gap-1.5 text-[11px] font-medium ${
                   walletConnected ? "text-accent" : "text-text-muted"
                 }`}>
                   <span className={`h-1.5 w-1.5 rounded-full ${walletConnected ? "bg-accent-light" : "bg-text-muted"}`} />
@@ -259,10 +259,10 @@ export default function TransactionDetail({
                 </span>
               </div>
               <div className="border-t border-border pt-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-text-muted">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-text-muted">
                   Signing Status
                 </p>
-                <p className={`mt-1 text-[14px] font-semibold ${
+                <p className={`mt-1 text-[13px] font-semibold ${
                   !walletConnected
                     ? "text-text-muted"
                     : verdictStatus === "blocked"
@@ -276,7 +276,7 @@ export default function TransactionDetail({
               </div>
             </div>
           </div>
-          <p className={`text-[15px] font-semibold ${
+          <p className={`text-[14px] font-semibold ${
             !walletConnected
               ? "text-text-muted"
               : verdictStatus === "blocked"
@@ -287,7 +287,7 @@ export default function TransactionDetail({
           }`}>
             {walletStatus}
           </p>
-          <p className="mt-1.5 text-[13px] leading-[1.65] text-text-muted">
+          <p className="mt-1.5 text-[12px] leading-[1.65] text-text-muted">
             {!walletConnected
               ? "Connect wallet to simulate signing."
               : verdictStatus === "blocked"

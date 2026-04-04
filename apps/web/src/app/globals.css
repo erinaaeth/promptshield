@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-satoshi: 'Satoshi', system-ui, sans-serif;
-  --font-instrument: 'Instrument Serif', Georgia, serif;
-  --font-jetbrains: 'JetBrains Mono', 'Courier New', monospace;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -21,7 +15,6 @@ html {
 body {
   background-color: #F7F8F4;
   color: #101311;
-  font-family: var(--font-satoshi);
 }
 
 /* Selection */
