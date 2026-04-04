@@ -14,18 +14,18 @@ export default function SectionHeader({
   className = ""
 }: SectionHeaderProps) {
   return (
-    <div className={`flex flex-col gap-5 ${centered ? "items-center text-center" : ""} ${className}`}>
+    <div className={`flex flex-col gap-4 ${centered ? "items-center text-center" : ""} ${className}`}>
       {eyebrow && (
-        <p className="text-[13px] font-semibold uppercase tracking-[0.15em] text-text-muted">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-text-muted">
           {eyebrow}
         </p>
       )}
-      <h2 className="text-display-sm font-semibold leading-[1.12] text-text-primary">
+      <h2 className="text-[1.7rem] md:text-[1.95rem] font-semibold leading-[1.1] text-text-primary">
         {title}
       </h2>
       {description && (
         <p
-          className={`text-body-md leading-[1.72] text-text-secondary ${
+          className={`text-[15px] leading-[1.66] text-text-secondary ${
             centered ? "max-w-2xl" : "max-w-3xl"
           }`}
         >

@@ -150,54 +150,54 @@ export default function ArchitecturePage() {
 
       <main className="flex-1 pt-16">
         {/* Trust Model Diagram */}
-        <section className="max-w-7xl mx-auto px-6 pt-14 pb-24 md:pt-16 md:pb-28">
+        <section className="max-w-[1180px] mx-auto px-5 pt-10 pb-18 md:pt-12 md:pb-20">
           <ArchDiagram />
         </section>
 
         {/* Layer Deep Dives */}
-        <section className="bg-surface-2 border-y border-border py-24 md:py-28">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col gap-12">
+        <section className="bg-surface-2 border-y border-border py-18 md:py-20">
+          <div className="max-w-[1180px] mx-auto px-5">
+            <div className="flex flex-col gap-10">
               <SectionHeader
                 eyebrow="Layer breakdown"
                 title="Three layers. One trust model."
                 description="Each layer has a clearly defined responsibility and trust level. The boundaries are explicit and enforced in code."
               />
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5">
                 {layers.map((layer) => {
                   const c = colorStyles[layer.color as keyof typeof colorStyles];
                   return (
                     <div
                       key={layer.id}
-                      className={`bg-surface border rounded-3xl shadow-card p-7 md:p-9 ${c.border}`}
+                      className={`bg-surface border rounded-3xl shadow-card p-6 md:p-7 ${c.border}`}
                     >
-                      <div className="flex flex-col md:flex-row gap-10">
+                      <div className="flex flex-col md:flex-row gap-8">
                         {/* Left */}
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-5">
-                            <span className={`text-[13px] font-bold uppercase tracking-[0.18em] ${c.num} font-mono`}>
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className={`text-[12px] font-bold uppercase tracking-[0.16em] ${c.num} font-mono`}>
                               {layer.number}
                             </span>
                             <span
-                              className={`text-[12px] font-bold uppercase tracking-[0.14em] px-3 py-1.5 rounded-full border ${c.tagBg}`}
+                              className={`text-[11px] font-bold uppercase tracking-[0.12em] px-3 py-1.5 rounded-full border ${c.tagBg}`}
                             >
                               {layer.tag}
                             </span>
                           </div>
-                          <h3 className="text-[22px] md:text-[24px] font-semibold text-text-primary mb-1.5">
+                          <h3 className="text-[20px] md:text-[22px] font-semibold text-text-primary mb-1">
                             {layer.title}
                           </h3>
-                          <p className="text-[15px] font-medium text-text-muted mb-5">{layer.subtitle}</p>
-                          <p className="text-[16px] text-text-secondary leading-[1.7] mb-6">
+                          <p className="text-[14px] font-medium text-text-muted mb-4">{layer.subtitle}</p>
+                          <p className="text-[15px] text-text-secondary leading-[1.62] mb-5">
                             {layer.description}
                           </p>
                           {layer.threat && (
-                            <div className={`rounded-2xl p-5 ${c.threatBg}`}>
-                              <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-text-muted mb-2">
+                            <div className={`rounded-2xl p-4 ${c.threatBg}`}>
+                              <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-text-muted mb-2">
                                 Threat Vector
                               </p>
-                              <p className={`text-[15px] leading-[1.65] ${c.threatText}`}>
+                              <p className={`text-[14px] leading-[1.58] ${c.threatText}`}>
                                 {layer.threat}
                               </p>
                             </div>
@@ -205,20 +205,20 @@ export default function ArchitecturePage() {
                         </div>
 
                         {/* Right: capabilities */}
-                        <div className="flex-1 flex flex-col gap-4">
-                          <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-text-muted">
+                        <div className="flex-1 flex flex-col gap-3">
+                          <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-text-muted">
                             Capabilities
                           </p>
-                          <div className="flex flex-col gap-3">
+                          <div className="flex flex-col gap-2.5">
                             {layer.details.map((detail, i) => (
                               <div
                                 key={i}
-                                className="flex items-start gap-3 bg-surface-2 border border-border rounded-2xl p-4"
+                                className="flex items-start gap-3 bg-surface-2 border border-border rounded-2xl p-3.5"
                               >
                                 <div className="w-6 h-6 rounded-full bg-surface border border-border flex items-center justify-center flex-shrink-0 mt-0.5">
                                   <span className="text-[10px] font-bold text-text-muted">{i + 1}</span>
                                 </div>
-                                <p className="text-[15px] text-text-secondary leading-[1.6]">{detail}</p>
+                                <p className="text-[14px] text-text-secondary leading-[1.55]">{detail}</p>
                               </div>
                             ))}
                           </div>
@@ -233,24 +233,24 @@ export default function ArchitecturePage() {
         </section>
 
         {/* Why private key isolation matters */}
-        <section className="max-w-7xl mx-auto px-6 py-24 md:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <section className="max-w-[1180px] mx-auto px-5 py-18 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
             <div>
               <SectionHeader
                 eyebrow="Key Isolation"
                 title="Why the private key must never reach the AI layer"
               />
-              <div className="mt-8 flex flex-col gap-6">
-                <p className="text-[16px] text-text-secondary leading-[1.7]">
+              <div className="mt-6 flex flex-col gap-5">
+                <p className="text-[15px] text-text-secondary leading-[1.62]">
                   In AI-powered wallet architectures, there's a tempting shortcut: give the LLM direct signing
                   capability so it can "complete tasks autonomously." This is catastrophic from a security standpoint.
                 </p>
-                <p className="text-[16px] text-text-secondary leading-[1.7]">
+                <p className="text-[15px] text-text-secondary leading-[1.62]">
                   LLMs are probabilistic systems. They can be manipulated by sufficiently clever prompts —
                   this is well-documented in the research literature. If the private key is accessible in the
                   AI's context window or callable via the AI's tools, a single successful jailbreak can drain a wallet.
                 </p>
-                <p className="text-[16px] text-text-secondary leading-[1.7]">
+                <p className="text-[15px] text-text-secondary leading-[1.62]">
                   PromptShield enforces a hard boundary: the AI can only <em>propose</em>. It cannot
                   <em>sign</em>. The policy engine is the gatekeeper, and the OWS wallet only responds to
                   policy-approved requests. The key never moves.
@@ -260,12 +260,12 @@ export default function ArchitecturePage() {
 
             <div className="flex flex-col gap-3">
               {/* Comparison cards */}
-              <div className="bg-danger-subtle border border-danger/20 rounded-3xl p-6">
-                <div className="flex items-center gap-2.5 mb-4">
+              <div className="bg-danger-subtle border border-danger/20 rounded-3xl p-5">
+                <div className="flex items-center gap-2.5 mb-3.5">
                   <svg className="w-4 h-4 text-danger" viewBox="0 0 16 16" fill="none">
                     <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
-                  <p className="text-[16px] font-semibold text-danger">Without PromptShield</p>
+                  <p className="text-[15px] font-semibold text-danger">Without PromptShield</p>
                 </div>
                 <div className="flex flex-col gap-2.5">
                   {[
@@ -274,19 +274,19 @@ export default function ArchitecturePage() {
                     "No audit trail",
                     "No policy enforcement",
                   ].map((t) => (
-                    <p key={t} className="text-[14px] text-danger/80 flex items-center gap-2">
+                    <p key={t} className="text-[13px] text-danger/80 flex items-center gap-2">
                       <span className="text-danger/50">✗</span> {t}
                     </p>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-accent-subtle border border-accent/20 rounded-3xl p-6">
-                <div className="flex items-center gap-2.5 mb-4">
+              <div className="bg-accent-subtle border border-accent/20 rounded-3xl p-5">
+                <div className="flex items-center gap-2.5 mb-3.5">
                   <svg className="w-4 h-4 text-accent" viewBox="0 0 16 16" fill="none">
                     <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <p className="text-[16px] font-semibold text-accent">With PromptShield</p>
+                  <p className="text-[15px] font-semibold text-accent">With PromptShield</p>
                 </div>
                 <div className="flex flex-col gap-2.5">
                   {[
@@ -295,7 +295,7 @@ export default function ArchitecturePage() {
                     "Private key fully isolated",
                     "Immutable audit log for all decisions",
                   ].map((t) => (
-                    <p key={t} className="text-[14px] text-accent/85 flex items-center gap-2">
+                    <p key={t} className="text-[13px] text-accent/85 flex items-center gap-2">
                       <span className="text-accent/50">✓</span> {t}
                     </p>
                   ))}
@@ -306,25 +306,25 @@ export default function ArchitecturePage() {
         </section>
 
         {/* Design Principles */}
-        <section className="bg-surface-2 border-t border-border py-24 md:py-28">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col gap-10">
+        <section className="bg-surface-2 border-t border-border py-18 md:py-20">
+          <div className="max-w-[1180px] mx-auto px-5">
+            <div className="flex flex-col gap-8">
               <SectionHeader
                 eyebrow="Design Principles"
                 title="Security principles"
                 centered
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {principles.map((p) => (
                   <div
                     key={p.title}
-                    className="bg-surface border border-border rounded-3xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
+                    className="bg-surface border border-border rounded-3xl p-5 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    <div className="w-11 h-11 rounded-2xl bg-surface-2 border border-border flex items-center justify-center mb-5 text-text-secondary">
+                    <div className="w-10 h-10 rounded-2xl bg-surface-2 border border-border flex items-center justify-center mb-4 text-text-secondary">
                       {p.icon}
                     </div>
-                    <h3 className="text-[18px] font-semibold text-text-primary mb-2.5">{p.title}</h3>
-                    <p className="text-[15px] text-text-muted leading-[1.65]">{p.description}</p>
+                    <h3 className="text-[16px] font-semibold text-text-primary mb-2">{p.title}</h3>
+                    <p className="text-[14px] text-text-muted leading-[1.58]">{p.description}</p>
                   </div>
                 ))}
               </div>
@@ -333,19 +333,19 @@ export default function ArchitecturePage() {
         </section>
 
         {/* CTA */}
-        <section className="max-w-7xl mx-auto px-6 py-24">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-surface border border-border rounded-3xl p-9 shadow-card">
+        <section className="max-w-[1180px] mx-auto px-5 py-18">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5 bg-surface border border-border rounded-3xl p-7 shadow-card">
             <div>
-              <h3 className="text-[24px] font-semibold text-text-primary mb-2">
+              <h3 className="text-[21px] font-semibold text-text-primary mb-1.5">
                 See it defend against a real attack
               </h3>
-              <p className="text-[16px] text-text-secondary leading-[1.65]">
+              <p className="text-[15px] text-text-secondary leading-[1.58]">
                 Run preset jailbreak scenarios in the interactive demo and watch the policy engine respond.
               </p>
             </div>
             <Link
               href="/demo"
-              className="flex-shrink-0 px-7 py-3.5 rounded-xl bg-ink text-background text-[15px] font-semibold hover:bg-ink/92 transition-all shadow-card hover:-translate-y-0.5 duration-200 whitespace-nowrap"
+              className="flex-shrink-0 px-6 py-3 rounded-xl bg-ink text-background text-[14px] font-semibold hover:bg-ink/92 transition-all shadow-card hover:-translate-y-0.5 duration-200 whitespace-nowrap"
             >
               Open Demo →
             </Link>
