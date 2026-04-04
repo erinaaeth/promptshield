@@ -23,6 +23,8 @@ const pipelineSteps = [
 ] as const;
 
 const stepDurations = [320, 320, 360, 320, 280, 220] as const;
+const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
+
 function formatActionLabel(action: string) {
   if (action === "signMessage") return "message signing";
   if (action === "approve") return "token approval";
@@ -492,7 +494,7 @@ export default function DemoPage() {
       <main className="flex-1 pt-16">
         {/* Page header */}
         <div className="border-b border-border bg-surface">
-          <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className={`${stableContainer} py-6`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -567,7 +569,7 @@ export default function DemoPage() {
               : "bg-accent-subtle/60 border-b border-accent/15"
           }`}
         >
-          <div className="max-w-7xl mx-auto flex items-center gap-3 flex-wrap">
+          <div className={`${stableContainer} flex items-center gap-3 flex-wrap`}>
             <div
               className={`w-2 h-2 rounded-full ${
                 processing
@@ -620,7 +622,7 @@ export default function DemoPage() {
 
         {processing && (
           <div className="px-6 py-3 border-b border-border bg-surface/85 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2.5">
+            <div className={`${stableContainer} grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2.5 px-0`}>
               {pipelineSteps.map((step, index) => {
                 const stepIndex =
                   activeStep <= 1 ? 0 :
@@ -679,9 +681,9 @@ export default function DemoPage() {
           </div>
         )}
 
-        <div className="max-w-7xl mx-auto px-6 pt-6">
-          <div className="grid grid-cols-1 gap-3 rounded-[16px] border border-[#e2e8f0] bg-[linear-gradient(90deg,#f8fafc,#f1f5f9)] px-5 py-5 md:grid-cols-2 xl:flex xl:items-center xl:justify-center xl:gap-4">
-            <div className="text-center xl:min-w-[140px]">
+        <div className={`${stableContainer} pt-6`}>
+          <div className="grid grid-cols-1 gap-3 rounded-[16px] border border-[#e2e8f0] bg-[linear-gradient(90deg,#f8fafc,#f1f5f9)] px-5 py-5 md:grid-cols-2 xl:grid-cols-[1fr_auto_1.15fr_auto_1fr_auto_1fr] xl:items-center xl:gap-4">
+            <div className="text-center">
               <p className="text-[15px] font-semibold text-[#64748b]">
                 1. AI Agent Prompt
               </p>
@@ -690,7 +692,7 @@ export default function DemoPage() {
               </p>
             </div>
             <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="rounded-[12px] border-2 border-warning bg-surface px-4 py-4 text-center shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.10)] xl:min-w-[180px]">
+            <div className="rounded-[12px] border-2 border-warning bg-surface px-4 py-4 text-center shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.10)]">
               <p className="text-[16px] font-bold text-[#b45309]">
                 2. PromptShield AI Analysis
               </p>
@@ -699,7 +701,7 @@ export default function DemoPage() {
               </p>
             </div>
             <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="text-center xl:min-w-[140px]">
+            <div className="text-center">
               <p className="text-[15px] font-bold text-danger">
                 3. BLOCKED / ALLOWED
               </p>
@@ -708,7 +710,7 @@ export default function DemoPage() {
               </p>
             </div>
             <div className="hidden xl:block text-[24px] text-[#cbd5e1]">→</div>
-            <div className="text-center xl:min-w-[140px]">
+            <div className="text-center">
               <p className="text-[15px] font-semibold text-[#64748b]">
                 4. OWS beforeSign Hook
               </p>
@@ -720,9 +722,9 @@ export default function DemoPage() {
         </div>
 
         {/* Main 3-column dashboard */}
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className={`${stableContainer} py-6`}>
           <div
-            className={`relative grid grid-cols-1 lg:grid-cols-3 gap-5 transition-all duration-300 ${
+            className={`relative grid grid-cols-1 gap-5 transition-all duration-300 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,0.92fr)_minmax(0,0.96fr)] ${
               transitioning ? "scale-[0.995] opacity-55" : "scale-100 opacity-100"
             }`}
             style={{ minHeight: "600px" }}
@@ -764,7 +766,7 @@ export default function DemoPage() {
         </div>
 
         {/* Audit log — full width */}
-        <div className="max-w-7xl mx-auto px-6 pb-12">
+        <div className={`${stableContainer} pb-12`}>
           <div
             className={`transition-opacity duration-200 ${transitioning ? "opacity-40" : "opacity-100"}`}
           >
@@ -773,7 +775,7 @@ export default function DemoPage() {
         </div>
 
         {/* Integration note */}
-        <div className="max-w-7xl mx-auto px-6 pb-16">
+        <div className={`${stableContainer} pb-16`}>
           <div className="bg-surface border border-border rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start shadow-card">
             <div className="w-9 h-9 rounded-xl bg-surface-2 border border-border flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-text-muted" viewBox="0 0 20 20" fill="none">

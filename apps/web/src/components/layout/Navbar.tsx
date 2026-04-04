@@ -10,6 +10,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [walletMenuOpen, setWalletMenuOpen] = useState(false);
   const walletMenuRef = useRef<HTMLDivElement>(null);
+  const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
   const { connected, connecting, shortAddress, address, network, status, connect, disconnect } =
     useMockWallet();
 
@@ -32,7 +33,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/92 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6 h-[74px] flex items-center justify-between">
+      <div className={`${stableContainer} h-[74px] flex items-center justify-between`}>
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-8 h-8 rounded-lg bg-ink flex items-center justify-center shadow-card">

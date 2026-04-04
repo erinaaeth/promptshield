@@ -16,15 +16,15 @@ export default function HomePage() {
       <Navbar />
 
       <main className="flex-1 pt-16">
-        <section className="max-w-7xl mx-auto px-6 py-28 md:py-32">
+        <section className="max-w-7xl mx-auto px-6 py-24 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,420px)] gap-16 lg:gap-20 items-center">
             <div className="flex flex-col gap-8 animate-on-load">
               <div className="flex flex-col gap-5">
-                <h1 className="max-w-4xl text-display-xl font-bold tracking-tight text-text-primary leading-[1.02]">
+                <h1 className="max-w-3xl text-[3.5rem] md:text-[4.25rem] lg:text-[5rem] font-bold tracking-[-0.04em] text-text-primary leading-[0.98]">
                   AI can be manipulated.
                   <span className="block text-text-secondary">Your wallet cannot.</span>
                 </h1>
-                <p className="max-w-2xl text-body-lg text-text-secondary leading-[1.75]">
+                <p className="max-w-xl text-[1.125rem] text-text-secondary leading-[1.72]">
                   PromptShield blocks unsafe AI-generated transactions before they ever reach signing.
                 </p>
               </div>

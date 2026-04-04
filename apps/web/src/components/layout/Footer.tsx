@@ -1,9 +1,11 @@
 import Link from "next/link";
 
 export default function Footer() {
+  const stableContainer = "mx-auto w-full max-w-[1280px] px-6";
+
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+      <div className={`${stableContainer} py-16`}>
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
